@@ -1,16 +1,15 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 )
 
-func readInput() (text string, err error) {
-	reader := bufio.NewReader(os.Stdin)
-	text, err = reader.ReadString('\n')
-	return text, err
-}
+//func readInput() (text string, err error) {
+//	reader := bufio.NewReader(os.Stdin)
+//	text, err = reader.ReadString('\n')
+//	return text, err
+//}
 
 func findWord(text string) (flag bool, position int) {
 	bytes := []byte(text)
@@ -27,7 +26,7 @@ func countWords(text string) (count int) {
 	flag, position := findWord(text)
 	if flag {
 		count++
-		for i := position; i < len(text); i++ {
+		for i := position; i < len(text)-1; i++ {
 			if string(text[i]) == " " && text[i+1] != text[len(text)-1] {
 				if string(text[i+1]) != " " {
 					count++
@@ -39,11 +38,7 @@ func countWords(text string) (count int) {
 }
 
 func main() {
-	text, err := readInput()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(-1)
-	}
+	text := os.Args[1]
 	count := countWords(text)
 	fmt.Println(count)
 }
